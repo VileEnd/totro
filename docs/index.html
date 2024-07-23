@@ -6,7 +6,7 @@
     <title>Totoro Daily Mission</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             background: url(https://www.wallpaperflare.com/static/682/612/914/anime-my-neighbor-totoro-hd-wallpaper-preview.jpg) no-repeat center center fixed;
             background-size: cover;
             color: #333;
@@ -25,9 +25,10 @@
             text-align: center;
             color: #2c3e50;
         }
-        p {
+        p, label {
             text-align: center;
             font-size: 1.2em;
+            white-space: pre-wrap;
         }
         .task {
             display: flex;
@@ -68,19 +69,34 @@
             h2, h3 {
                 font-size: 1.2em;
             }
-            p {
+            p, label {
                 font-size: 1em;
             }
             input[type=checkbox] {
                 transform: scale(1.2);
             }
         }
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid orange; 
+            white-space: nowrap;
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <img src="https://banner2.cleanpng.com/20180404/ttw/kisspng-splatoon-drawing-deviantart-totoro-5ac4bde926ee73.1817473115228431131595.jpg" alt="Totoro" class="totoro-img">
-        <h1>Totoro Daily Mission</h1>
+        <h1 class="typewriter-text">Totoro Daily Mission</h1>
         <p><strong>Guardian Hoot</strong>, your mission, should you choose to accept it, is of utmost importance to the forest and its inhabitants. Today's mission is critical to the harmony and well-being of the forest. Complete each task to ensure the protection and happiness of all who dwell here.</p>
         <div class="mission">
             <h2>Operation: Day of Harmony</h2>
@@ -154,6 +170,22 @@
                     congratulations.classList.add('hidden');
                 }
             }
+
+            // Typewriter effect for the header
+            const typewriterText = document.querySelector('.typewriter-text');
+            const textContent = typewriterText.textContent;
+            typewriterText.textContent = '';
+            let index = 0;
+
+            function typeWriter() {
+                if (index < textContent.length) {
+                    typewriterText.textContent += textContent.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+
+            typeWriter();
         });
     </script>
 </body>
