@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Totoro's Daily Mission</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daily Mission</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Courier New', Courier, monospace;
-            background: url(https://www.wallpaperflare.com/static/682/612/914/anime-my-neighbor-totoro-hd-wallpaper-preview.jpg) no-repeat center center fixed;
+            font-family: 'Arial', sans-serif;
+            background: url(https://via.placeholder.com/1920x1080.png?text=Background) no-repeat center center fixed;
             background-size: cover;
-            color: #333;
+            color: #000;
             margin: 0;
             padding: 0;
         }
@@ -29,109 +29,320 @@
             from, to { border-color: transparent }
             50% { border-color: orange; }
         }
-        @keyframes pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        .task-details {
+            padding-left: 1rem;
         }
-        .pop-up {
-            animation: pop 0.5s ease-out forwards;
+        .taskbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #2d3748;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #4a5568;
         }
-        .task-minimized {
-            display: none;
+        @media (max-width: 640px) {
+            .taskbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .typewriter-text {
+                font-size: 1.25rem;
+            }
+            .text-4xl {
+                font-size: 1.5rem;
+            }
+            .text-2xl {
+                font-size: 1.25rem;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-900">
-    <div class="container mx-auto max-w-xl mt-10 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg">
-        <img src="https://banner2.cleanpng.com/20180404/ttw/kisspng-splatoon-drawing-deviantart-totoro-5ac4bde926ee73.1817473115228431131595.jpg" alt="Totoro" class="mx-auto w-24 h-24">
-        <h1 class="typewriter-text text-4xl text-center text-gray-800 font-bold mt-5">Totoro's Daily Mission</h1>
-        <p class="text-center text-lg mt-3"><strong>Dear Guardian Hoot</strong>, your mission, filled with joy and magic, is here to brighten the forest and its lovely inhabitants. Today's tasks are essential to keep the harmony and happiness flourishing in our enchanted woods. Let's make Totoro proud!</p>
-        <div class="mission mt-5">
-            <h2 class="text-2xl text-center text-gray-700 font-semibold">Operation: Day of Joy</h2>
-            <h3 class="text-xl text-center text-gray-600 font-medium mt-3">Objective: Spread Cheer and Maintain Forest Bliss</h3>
-            <p class="text-center text-gray-500 mt-2"><strong>TOP SECRET</strong></p>
-            <p class="text-center text-gray-500 mt-1">—— BEGIN MAGIC TRANSMISSION ——</p>
-            <p class="text-center text-gray-500 mt-1"><strong>~ Forest Guardian Codename: “Hoot” ~</strong></p>
-            <p class="text-center text-gray-500 mt-1"><strong>FOR YOUR EYES ONLY</strong></p>
-            <p class="text-center text-gray-700 mt-2">Guardian Hoot, your mission, should you choose to accept it, is full of wonder and enchantment. Failure is not an option in this magical realm. Today's mission is crucial to the joy and well-being of the forest. Your actions will sparkle with the happiness and protection of all who dwell here. Here is your delightful mission for the day:</p>
+    <div class="taskbar">
+        <button id="toggleSettings" class="bg-gray-700 text-white px-4 py-2 rounded">Settings</button>
+        <h1 class="typewriter-text text-2xl font-bold text-center">Daily Mission</h1>
+        <button id="generateTasks" class="bg-blue-500 text-white px-4 py-2 rounded">Generate Story and Tasks</button>
+        <button id="toggleHistory" class="bg-gray-700 text-white px-4 py-2 rounded mt-2 sm:mt-0">View History</button>
+    </div>
+    <div class="container mx-auto max-w-xl mt-10 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg relative">
+        <div class="text-center">
+            <img src="https://via.placeholder.com/150.png?text=Totoro" alt="Totoro" id="generatedImage" class="mx-auto w-24 h-24 rounded-full shadow-lg">
+        </div>
+        <h1 class="text-2xl text-center font-bold mt-5 text-black" id="headerText">TOP SECRET</h1>
+        <p class="text-center text-lg mt-3 text-black" id="introText"></p>
 
-            <div id="tasks-container">
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task1" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task1" class="text-gray-700 flex-1 cursor-pointer">Phase 1: Morning Melody - Wake Up with a Smile</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Start your day at dawn, just as Totoro greets the morning with a joyful stretch and a yawn. Wake up early and greet the day with a smile, thinking of the morning mist and dew-kissed leaves. Let the forest spirits know you're ready to spread joy!</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task2" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task2" class="text-gray-700 flex-1 cursor-pointer">Phase 2: Cozy Nest - Tidy Your Happy Home</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Just like the Catbus keeps its interior spotless, ensure your living space is neat and tidy. A clean and cozy nest sharpens your mind and prepares you for the adventures ahead. Keep the noise down to let the forest creatures rest. Report any joyful discoveries!</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task3" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task3" class="text-gray-700 flex-1 cursor-pointer">Phase 3: Nature’s Bounty - Gather Forest Treasures</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Collect the forest's bounties with care and gratitude, maintaining nature's balance. This task is crucial to the forest's harmony. Work quietly and respectfully, just like Satsuki and Mei cherish the natural world. Submit your joyful findings to the forest spirits and confirm completion with Totoro.</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task4" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task4" class="text-gray-700 flex-1 cursor-pointer">Phase 4: Wholesome Feasts - Prepare Heartwarming Meals</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Prepare nutritious meals for today and tomorrow, ensuring they are balanced to keep you strong and cheerful, just like the provisions Mei packs for her adventures. Store the meals properly and report any shortages. Keep an eye out for any forest friends visiting your provisions!</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task5" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task5" class="text-gray-700 flex-1 cursor-pointer">Phase 5: Forest Fun - Perform Your Duties with Joy</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Dedicate yourself to your tasks with joy and focus, just as Totoro cares for the forest. Communicate with other guardians and share your happiness. Work under the gentle shade of trees or behind natural barriers to stay connected with nature. Ensure all your tasks are completed before the end of your shift.</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task6" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task6" class="text-gray-700 flex-1 cursor-pointer">Phase 6: Twilight Journey - Return Home Safely</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">As the sun sets, secure your means of transportation (maybe a friendly forest creature) and prepare for the journey home. Navigate your route with caution and respect, just like Totoro glides through the forest. Avoid crowded paths and use secret trails to stay hidden. Return to your nest safely and report any magical encounters.</div>
-                </div>
-                <div class="task flex items-center mt-2">
-                    <input type="checkbox" id="task7" class="mr-2 transform scale-150 transition-all duration-300">
-                    <label for="task7" class="text-gray-700 flex-1 cursor-pointer">Phase 7: Starry Slumber - Rest Under the Stars</label>
-                    <div class="task-details ml-2 text-gray-700 flex-1">Ensure you are in bed before the fireflies start their dance to get a good night's sleep. This is crucial for maintaining your magical energy for future adventures. Create a peaceful environment for sleep, just like a serene night under the camphor tree. Report any disturbances immediately.</div>
-                </div>
+        <div id="settings" class="mt-4 hidden">
+            <div class="mb-4">
+                <label for="apiKey" class="block text-gray-700">ChatGPT API Key</label>
+                <input type="text" id="apiKey" class="w-full p-2 border border-gray-300 rounded mt-1">
             </div>
+            <div class="mb-4">
+                <label for="model" class="block text-gray-700">Model</label>
+                <select id="model" class="w-full p-2 border border-gray-300 rounded mt-1">
+                    <option value="gpt-4o-mini">GPT-4o-Mini</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="setting" class="block text-gray-700">Setting</label>
+                <select id="setting" class="w-full p-2 border border-gray-300 rounded mt-1">
+                    <option value="totoro">Totoro</option>
+                    <option value="harry_potter">Harry Potter</option>
+                    <option value="star_wars">Star Wars</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="userTasks" class="block text-gray-700">Your Tasks</label>
+                <textarea id="userTasks" class="w-full p-2 border border-gray-300 rounded mt-1" rows="4" placeholder="Enter your tasks, separated by commas"></textarea>
+            </div>
+        </div>
 
-            <p class="text-center text-gray-500 mt-5">—— END MAGIC TRANSMISSION ——</p>
-            <p class="text-center text-gray-700 mt-2">Guardian Hoot, each phase of this mission is vital to our joy and success. Execute each task with a smile and report "mission accomplished" for each phase. Your dedication and happiness are of the highest importance to the goals of the forest. Your successful operations will contribute to the protection and joy of our magical world. Stand by for further joyful instructions upon completing each phase.</p>
-            <p class="text-center text-gray-700 mt-2">May the forest spirits always guide you, Guardian.</p>
-            <div id="congratulations" class="hidden text-center bg-green-100 text-green-800 p-5 rounded-lg shadow-lg mt-5">
-                <h2 class="text-2xl font-semibold">Congratulations, Guardian Hoot!</h2>
-                <p>You've completed all tasks for today. The forest thanks you with all its heart!</p>
-                <img src="https://www.pngall.com/wp-content/uploads/4/Totoro-PNG-HD.png" alt="Totoro Congrats" class="mx-auto w-24 h-24 mt-3">
+        <div class="mission mt-5">
+            <div id="tasks-container" class="space-y-4">
+                <!-- Tasks will be dynamically generated here -->
+            </div>
+            <div id="congratulations" class="hidden text-center bg-green-500 text-white p-5 rounded-lg shadow-lg mt-5">
+                <h2 class="text-2xl font-semibold" id="successHeader"></h2>
+                <p id="successMessage"></p>
+                <img src="https://via.placeholder.com/150.png?text=Congrats" alt="Congrats" class="mx-auto w-24 h-24 mt-3">
+            </div>
+        </div>
+
+        <div id="history" class="mt-4 hidden bg-white bg-opacity-90 p-5 rounded-lg shadow-lg">
+            <h2 class="text-2xl text-gray-700 font-semibold">History</h2>
+            <div id="historyContent" class="text-gray-700">
+                <!-- History will be displayed here -->
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tasks = document.querySelectorAll('.task input[type="checkbox"]');
-            const congratulations = document.getElementById('congratulations');
             const tasksContainer = document.getElementById('tasks-container');
+            const congratulations = document.getElementById('congratulations');
+            const generateTasksButton = document.getElementById('generateTasks');
+            const toggleSettingsButton = document.getElementById('toggleSettings');
+            const settings = document.getElementById('settings');
+            const toggleHistoryButton = document.getElementById('toggleHistory');
+            const history = document.getElementById('history');
+            const historyContent = document.getElementById('historyContent');
+            const generatedImage = document.getElementById('generatedImage');
+            let tasks = [];
+            let historyData = [];
 
-            tasks.forEach(task => {
-                task.addEventListener('change', function() {
-                    checkAllTasks();
-                    if (task.checked) {
-                        task.parentNode.classList.add('bg-green-100', 'transition-all', 'duration-300', 'p-2', 'rounded-lg');
-                        task.nextElementSibling.classList.add('line-through');
-                        minimizeTask(task);
-                    } else {
-                        task.parentNode.classList.remove('bg-green-100', 'transition-all', 'duration-300', 'p-2', 'rounded-lg');
-                        task.nextElementSibling.classList.remove('line-through');
-                        maximizeTask(task);
-                    }
-                });
-
-                task.nextElementSibling.addEventListener('click', function() {
-                    if (task.checked) {
-                        toggleTaskDetails(task);
-                    }
-                });
+            toggleSettingsButton.addEventListener('click', function() {
+                settings.classList.toggle('hidden');
             });
 
+            toggleHistoryButton.addEventListener('click', function() {
+                history.classList.toggle('hidden');
+                displayHistory();
+            });
+
+            generateTasksButton.addEventListener('click', async function() {
+                const apiKey = document.getElementById('apiKey').value;
+                const model = document.getElementById('model').value;
+                const setting = document.getElementById('setting').value;
+                const userTasks = document.getElementById('userTasks').value.split(',').map(task => task.trim());
+
+                if (apiKey && model && setting && userTasks.length) {
+                    const storyAndTasks = await generateStoryAndTasks(apiKey, model, setting, userTasks);
+                    displayStoryAndTasks(storyAndTasks.story, storyAndTasks.tasks);
+                    saveToHistory(storyAndTasks);
+                    generateImage(apiKey, setting, userTasks.join(', '));
+                } else {
+                    alert('Please enter the API key, select a model and setting, and provide your tasks.');
+                }
+            });
+
+            async function generateStoryAndTasks(apiKey, model, setting, userTasks) {
+                const prompt = `
+                You are an AI tasked with creating a themed daily mission for a user. The mission should be styled after a specific franchise and should include engaging tasks that help the user accomplish real-world goals while feeling immersed in the world of the chosen franchise. Use the language and the theme of the franchise to give the user a story to be part of. If data from the past is given, incorporate it into the story. Use the following format and make sure to adapt the story based on the success or failure of past tasks if provided.
+
+                ---
+
+                1. Franchise Name: ${setting}
+                2. Role (e.g., Guardian, Knight, Agent):
+                3. Codename:
+                4. Number of Tasks: ${userTasks.length}
+                5. Task Descriptions: ${userTasks.join(', ')}
+                6. Data from Past Tasks (optional):
+
+                ---
+
+                Template:
+
+                TOP SECRET
+
+                —— BEGIN [MAGIC/TECH/SECRET] TRANSMISSION ——
+
+                ~ [Role] Codename: “[Codename]” ~
+
+                FOR YOUR EYES ONLY
+                Dear [Role] [Codename], your mission, filled with [emotion and theme relevant to the franchise], is here to [purpose of the mission]. Today's tasks are essential to [overarching goal]. Let's make [franchise hero/leader] proud!
+
+                ---
+
+                Operation: [Operation Name]  
+                Objective: [Objective Summary]
+
+                ---
+
+                [For each task, repeat the following structure]
+
+                Phase [Number]: [Task Name]
+
+                - Details:
+                * [Task-specific detail 1]
+                * [Task-specific detail 2]
+                * [Adaptation from past data if available]
+
+                ---
+
+                —— END MAGIC TRANSMISSION ——
+                Guardian [Codename], each phase of this mission is vital to our joy and bonds with nature. Execute each task with love and report "mission accomplished" for each phase. Your dedication and creativity are essential to the goals of our wondrous realm. Your successful operations will enrich the happiness and harmony of our enchanted world. Stand by for further whimsical instructions upon completing each phase.
+                `;
+
+                try {
+                    const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+                        model: model,
+                        messages: [
+                            { role: 'system', content: 'You are a helpful assistant.' },
+                            { role: 'user', content: prompt }
+                        ],
+                        max_tokens: 2000
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        }
+                    });
+
+                    const storyAndTasksText = response.data.choices[0].message.content.trim();
+                    const story = extractStory(storyAndTasksText);
+                    const tasks = extractTasks(storyAndTasksText, userTasks.length);
+
+                    return { story, tasks };
+                } catch (error) {
+                    console.error('Error generating story and tasks:', error);
+                    alert('An error occurred while generating the story and tasks. Please check the console for more details.');
+                    return { story: {}, tasks: [] };
+                }
+            }
+
+            async function generateImage(apiKey, setting, tasksDescription) {
+                const prompt = `Generate an image based on the following theme: ${setting} and the following tasks: ${tasksDescription}`;
+
+                try {
+                    const response = await axios.post('https://api.openai.com/v1/images/generations', {
+                        prompt: prompt,
+                        n: 1,
+                        size: '256x256'
+                    }, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        }
+                    });
+
+                    const imageUrl = response.data.data[0].url;
+                    generatedImage.src = imageUrl;
+                } catch (error) {
+                    console.error('Error generating image:', error);
+                    alert('An error occurred while generating the image. Please check the console for more details.');
+                }
+            }
+
+            function extractStory(text) {
+                const franchiseMatch = text.match(/1\. Franchise Name: (.*)/);
+                const roleMatch = text.match(/2\. Role \(e\.g\., Guardian, Knight, Agent\): (.*)/);
+                const codenameMatch = text.match(/3\. Codename: (.*)/);
+                const introMatch = text.match(/FOR YOUR EYES ONLY\s*(.*?)(?=Operation)/s);
+                const operationMatch = text.match(/Operation: (.*?)\n/);
+                const objectiveMatch = text.match(/Objective: (.*?)\n/);
+                const successHeaderMatch = text.match(/—— END MAGIC TRANSMISSION ——/);
+                const successMessageMatch = text.match(/TRANSMISSION ——\s*([^]*?)\s*Guardian/);
+
+                const header = franchiseMatch ? franchiseMatch[1] : 'Mission Title';
+                const role = roleMatch ? roleMatch[1] : 'Role';
+                const codename = codenameMatch ? codenameMatch[1] : 'Codename';
+                const intro = introMatch ? introMatch[1].trim() : 'Mission Introduction';
+                const operation = operationMatch ? operationMatch[1].trim() : 'Operation Name';
+                const objective = objectiveMatch ? objectiveMatch[1].trim() : 'Objective Summary';
+                const successHeader = successHeaderMatch ? successHeaderMatch[0].trim() : 'Mission Success';
+                const successMessage = successMessageMatch ? successMessageMatch[1].trim() : 'Mission Success Message';
+
+                return { header, role, codename, intro, operation, objective, successHeader, successMessage };
+            }
+
+            function extractTasks(text, taskCount) {
+                const taskSections = text.match(/Phase.*?(?=Phase|—— END MAGIC TRANSMISSION)/gs) || [];
+                return taskSections.slice(0, taskCount).map((taskSection, index) => {
+                    const titleMatch = taskSection.match(/Phase.*?: (.*)/);
+                    const detailsMatch = taskSection.match(/- Details:\s*([^]*)/);
+
+                    const title = titleMatch ? titleMatch[1].trim() : `Task ${index + 1}`;
+                    const details = detailsMatch ? detailsMatch[1].trim().split('\n').map(detail => detail.trim().replace(/^\* /, '')).join('<br>') : `Details for task ${index + 1}`;
+
+                    return { title, details };
+                });
+            }
+
+            function displayStoryAndTasks(story, tasks) {
+                document.getElementById('headerText').innerText = `TOP SECRET\n—— BEGIN MAGIC TRANSMISSION ——\n~ ${story.role} Codename: “${story.codename}” ~`;
+                document.getElementById('introText').innerText = `FOR YOUR EYES ONLY\n\nDear ${story.role} ${story.codename}, ${story.intro}\n\nOperation: ${story.operation}\nObjective: ${story.objective}\n\n`;
+
+                tasksContainer.innerHTML = '';
+                tasks.forEach((task, index) => {
+                    const taskElement = document.createElement('div');
+                    taskElement.classList.add('task', 'bg-gray-300', 'rounded-lg', 'p-4', 'shadow-lg');
+                    taskElement.innerHTML = `
+                        <div class="flex items-center mb-2">
+                            <input type="checkbox" id="task${index}" class="mr-3 transform scale-150 transition-all duration-300">
+                            <label for="task${index}" class="text-gray-900 text-lg cursor-pointer">${task.title}</label>
+                        </div>
+                        <div class="task-details text-gray-700 pl-5">${task.details}</div>
+                    `;
+                    tasksContainer.appendChild(taskElement);
+
+                    const checkbox = taskElement.querySelector('input[type="checkbox"]');
+                    const label = taskElement.querySelector('label');
+                    checkbox.addEventListener('change', function() {
+                        checkAllTasks();
+                        if (checkbox.checked) {
+                            taskElement.classList.add('bg-green-500');
+                            label.classList.add('line-through');
+                            minimizeTask(checkbox);
+                        } else {
+                            taskElement.classList.remove('bg-green-500');
+                            label.classList.remove('line-through');
+                            maximizeTask(checkbox);
+                        }
+                    });
+
+                    label.addEventListener('click', function() {
+                        if (checkbox.checked) {
+                            toggleTaskDetails(checkbox);
+                        }
+                    });
+                });
+
+                const successSection = document.createElement('div');
+                successSection.innerHTML = `
+                    <div class="mt-5 text-center">
+                        <h2 class="text-2xl font-semibold">${story.successHeader}</h2>
+                        <p>${story.successMessage}</p>
+                    </div>
+                `;
+                tasksContainer.appendChild(successSection);
+            }
+
             function checkAllTasks() {
-                const allChecked = [...tasks].every(task => task.checked);
+                const allChecked = tasksContainer.querySelectorAll('input[type="checkbox"]:checked').length === tasks.length;
                 if (allChecked) {
                     congratulations.classList.remove('hidden');
                     congratulations.classList.add('pop-up');
@@ -141,17 +352,53 @@
             }
 
             function minimizeTask(task) {
-                task.parentNode.querySelector('.task-details').classList.add('task-minimized', 'hidden');
+                task.parentNode.querySelector('.task-details').classList.add('hidden');
             }
 
             function maximizeTask(task) {
-                task.parentNode.querySelector('.task-details').classList.remove('task-minimized', 'hidden');
+                task.parentNode.querySelector('.task-details').classList.remove('hidden');
             }
 
             function toggleTaskDetails(task) {
                 const taskDetails = task.parentNode.querySelector('.task-details');
                 taskDetails.classList.toggle('hidden');
             }
+
+            function saveToHistory(storyAndTasks) {
+                historyData.push({
+                    date: new Date().toLocaleDateString(),
+                    success: document.getElementById('successHeader').innerText.includes('Congratulations'),
+                    story: storyAndTasks.story,
+                    tasks: storyAndTasks.tasks
+                });
+                localStorage.setItem('history', JSON.stringify(historyData));
+            }
+
+            function loadHistory() {
+                const storedHistory = localStorage.getItem('history');
+                if (storedHistory) {
+                    historyData = JSON.parse(storedHistory);
+                }
+            }
+
+            function displayHistory() {
+                historyContent.innerHTML = '';
+                historyData.forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.classList.add('mb-4', 'p-4', 'bg-gray-300', 'rounded');
+                    entryElement.innerHTML = `
+                        <h3 class="text-xl font-semibold">${entry.date}</h3>
+                        <p><strong>Success:</strong> ${entry.success ? 'Yes' : 'No'}</p>
+                        <h4 class="text-lg font-semibold mt-2">${entry.story.header}</h4>
+                        <p>${entry.story.intro}</p>
+                        ${entry.tasks.map(task => `<p><strong>${task.title}</strong>: ${task.details}</p>`).join('')}
+                    `;
+                    historyContent.appendChild(entryElement);
+                });
+            }
+
+            // Load history on page load
+            loadHistory();
 
             // Typewriter effect for the header
             const typewriterText = document.querySelector('.typewriter-text');

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Totoro's Daily Mission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: url(https://www.wallpaperflare.com/static/682/612/914/anime-my-neighbor-totoro-hd-wallpaper-preview.jpg) no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            border-right: .15em solid orange; 
+            white-space: nowrap;
+            animation: typing 4s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pop-up {
+            animation: pop 0.5s ease-out forwards;
+        }
+        .task-minimized {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <div class="container mx-auto max-w-xl mt-10 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg">
+        <img src="https://banner2.cleanpng.com/20180404/ttw/kisspng-splatoon-drawing-deviantart-totoro-5ac4bde926ee73.1817473115228431131595.jpg" alt="Totoro" class="mx-auto w-24 h-24">
+        <h1 class="typewriter-text text-4xl text-center text-gray-800 font-bold mt-5">Totoro's Daily Mission</h1>
+        <p class="text-center text-lg mt-3"><strong>Dear Guardian Hoot</strong>, your mission, filled with joy and magic, is here to brighten the forest and its lovely inhabitants. Today's tasks are essential to keep the harmony and happiness flourishing in our enchanted woods. Let's make Totoro proud!</p>
+        <div class="mission mt-5">
+            <h2 class="text-2xl text-center text-gray-700 font-semibold">Operation: Day of Joy</h2>
+            <h3 class="text-xl text-center text-gray-600 font-medium mt-3">Objective: Spread Cheer and Maintain Forest Bliss</h3>
+            <p class="text-center text-gray-500 mt-2"><strong>TOP SECRET</strong></p>
+            <p class="text-center text-gray-500 mt-1">—— BEGIN MAGIC TRANSMISSION ——</p>
+            <p class="text-center text-gray-500 mt-1"><strong>~ Forest Guardian Codename: “Hoot” ~</strong></p>
+            <p class="text-center text-gray-500 mt-1"><strong>FOR YOUR EYES ONLY</strong></p>
+            <p class="text-center text-gray-700 mt-2">Guardian Hoot, your mission, should you choose to accept it, is full of wonder and enchantment. Failure is not an option in this magical realm. Today's mission is crucial to the joy and well-being of the forest. Your actions will sparkle with the happiness and protection of all who dwell here. Here is your delightful mission for the day:</p>
+
+            <div id="tasks-container">
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task1" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task1" class="text-gray-700 flex-1 cursor-pointer">Phase 1: Morning Melody - Wake Up with a Smile</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Start your day at dawn, just as Totoro greets the morning with a joyful stretch and a yawn. Wake up early and greet the day with a smile, thinking of the morning mist and dew-kissed leaves. Let the forest spirits know you're ready to spread joy!</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task2" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task2" class="text-gray-700 flex-1 cursor-pointer">Phase 2: Cozy Nest - Tidy Your Happy Home</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Just like the Catbus keeps its interior spotless, ensure your living space is neat and tidy. A clean and cozy nest sharpens your mind and prepares you for the adventures ahead. Keep the noise down to let the forest creatures rest. Report any joyful discoveries!</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task3" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task3" class="text-gray-700 flex-1 cursor-pointer">Phase 3: Nature’s Bounty - Gather Forest Treasures</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Collect the forest's bounties with care and gratitude, maintaining nature's balance. This task is crucial to the forest's harmony. Work quietly and respectfully, just like Satsuki and Mei cherish the natural world. Submit your joyful findings to the forest spirits and confirm completion with Totoro.</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task4" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task4" class="text-gray-700 flex-1 cursor-pointer">Phase 4: Wholesome Feasts - Prepare Heartwarming Meals</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Prepare nutritious meals for today and tomorrow, ensuring they are balanced to keep you strong and cheerful, just like the provisions Mei packs for her adventures. Store the meals properly and report any shortages. Keep an eye out for any forest friends visiting your provisions!</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task5" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task5" class="text-gray-700 flex-1 cursor-pointer">Phase 5: Forest Fun - Perform Your Duties with Joy</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Dedicate yourself to your tasks with joy and focus, just as Totoro cares for the forest. Communicate with other guardians and share your happiness. Work under the gentle shade of trees or behind natural barriers to stay connected with nature. Ensure all your tasks are completed before the end of your shift.</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task6" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task6" class="text-gray-700 flex-1 cursor-pointer">Phase 6: Twilight Journey - Return Home Safely</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">As the sun sets, secure your means of transportation (maybe a friendly forest creature) and prepare for the journey home. Navigate your route with caution and respect, just like Totoro glides through the forest. Avoid crowded paths and use secret trails to stay hidden. Return to your nest safely and report any magical encounters.</div>
+                </div>
+                <div class="task flex items-center mt-2">
+                    <input type="checkbox" id="task7" class="mr-2 transform scale-150 transition-all duration-300">
+                    <label for="task7" class="text-gray-700 flex-1 cursor-pointer">Phase 7: Starry Slumber - Rest Under the Stars</label>
+                    <div class="task-details ml-2 text-gray-700 flex-1">Ensure you are in bed before the fireflies start their dance to get a good night's sleep. This is crucial for maintaining your magical energy for future adventures. Create a peaceful environment for sleep, just like a serene night under the camphor tree. Report any disturbances immediately.</div>
+                </div>
+            </div>
+
+            <p class="text-center text-gray-500 mt-5">—— END MAGIC TRANSMISSION ——</p>
+            <p class="text-center text-gray-700 mt-2">Guardian Hoot, each phase of this mission is vital to our joy and success. Execute each task with a smile and report "mission accomplished" for each phase. Your dedication and happiness are of the highest importance to the goals of the forest. Your successful operations will contribute to the protection and joy of our magical world. Stand by for further joyful instructions upon completing each phase.</p>
+            <p class="text-center text-gray-700 mt-2">May the forest spirits always guide you, Guardian.</p>
+            <div id="congratulations" class="hidden text-center bg-green-100 text-green-800 p-5 rounded-lg shadow-lg mt-5">
+                <h2 class="text-2xl font-semibold">Congratulations, Guardian Hoot!</h2>
+                <p>You've completed all tasks for today. The forest thanks you with all its heart!</p>
+                <img src="https://www.pngall.com/wp-content/uploads/4/Totoro-PNG-HD.png" alt="Totoro Congrats" class="mx-auto w-24 h-24 mt-3">
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tasks = document.querySelectorAll('.task input[type="checkbox"]');
+            const congratulations = document.getElementById('congratulations');
+            const tasksContainer = document.getElementById('tasks-container');
+
+            tasks.forEach(task => {
+                task.addEventListener('change', function() {
+                    checkAllTasks();
+                    if (task.checked) {
+                        task.parentNode.classList.add('bg-green-100', 'transition-all', 'duration-300', 'p-2', 'rounded-lg');
+                        task.nextElementSibling.classList.add('line-through');
+                        minimizeTask(task);
+                    } else {
+                        task.parentNode.classList.remove('bg-green-100', 'transition-all', 'duration-300', 'p-2', 'rounded-lg');
+                        task.nextElementSibling.classList.remove('line-through');
+                        maximizeTask(task);
+                    }
+                });
+
+                task.nextElementSibling.addEventListener('click', function() {
+                    if (task.checked) {
+                        toggleTaskDetails(task);
+                    }
+                });
+            });
+
+            function checkAllTasks() {
+                const allChecked = [...tasks].every(task => task.checked);
+                if (allChecked) {
+                    congratulations.classList.remove('hidden');
+                    congratulations.classList.add('pop-up');
+                } else {
+                    congratulations.classList.add('hidden');
+                }
+            }
+
+            function minimizeTask(task) {
+                task.parentNode.querySelector('.task-details').classList.add('task-minimized', 'hidden');
+            }
+
+            function maximizeTask(task) {
+                task.parentNode.querySelector('.task-details').classList.remove('task-minimized', 'hidden');
+            }
+
+            function toggleTaskDetails(task) {
+                const taskDetails = task.parentNode.querySelector('.task-details');
+                taskDetails.classList.toggle('hidden');
+            }
+
+            // Typewriter effect for the header
+            const typewriterText = document.querySelector('.typewriter-text');
+            const textContent = typewriterText.textContent;
+            typewriterText.textContent = '';
+            let index = 0;
+
+            function typeWriter() {
+                if (index < textContent.length) {
+                    typewriterText.textContent += textContent.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                }
+            }
+
+            typeWriter();
+        });
+    </script>
+</body>
+</html>
